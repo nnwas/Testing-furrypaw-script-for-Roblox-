@@ -49,7 +49,6 @@ function Menu.Create(
 
 
 
-
 	local frame =
 		Instance.new(
 			"Frame"
@@ -92,6 +91,84 @@ function Menu.Create(
 
 
 
+	-- Lock button
+	local lockButton =
+		Instance.new(
+			"TextButton"
+		)
+
+
+	lockButton.Name =
+		"LockButton"
+
+
+	lockButton.Size =
+		UDim2.new(
+			0,
+			35,
+			0,
+			35
+		)
+
+
+	lockButton.Position =
+		UDim2.new(
+			1,
+			-40,
+			0,
+			5
+		)
+
+
+	lockButton.Text =
+		"🔓"
+
+
+	lockButton.TextScaled =
+		true
+
+
+	lockButton.BackgroundColor3 =
+		Color3.fromRGB(
+			100,
+			100,
+			120
+		)
+
+
+	lockButton.BackgroundTransparency =
+		0.3
+
+
+	lockButton.Parent =
+		frame
+
+
+	local isLocked = false
+
+
+	lockButton.MouseButton1Click:Connect(
+	function()
+
+		isLocked =
+			not isLocked
+
+		if isLocked then
+
+			lockButton.Text =
+				"🔒"
+
+		else
+
+			lockButton.Text =
+				"🔓"
+
+		end
+
+	end)
+
+
+
 
 	local title =
 		Instance.new(
@@ -102,9 +179,18 @@ function Menu.Create(
 	title.Size =
 		UDim2.new(
 			1,
-			0,
+			-40,
 			0,
 			40
+		)
+
+
+	title.Position =
+		UDim2.new(
+			0,
+			0,
+			0,
+			0
 		)
 
 
@@ -116,9 +202,12 @@ function Menu.Create(
 		true
 
 
+	title.BackgroundTransparency =
+		1
+
+
 	title.Parent =
 		frame
-
 
 
 
@@ -134,19 +223,23 @@ function Menu.Create(
 	title.InputBegan:Connect(
 	function(input)
 
-		if input.UserInputType ==
-			Enum.UserInputType.MouseButton1
-			or input.UserInputType ==
-			Enum.UserInputType.Touch then
+		if not isLocked then
+
+			if input.UserInputType ==
+				Enum.UserInputType.MouseButton1
+				or input.UserInputType ==
+				Enum.UserInputType.Touch then
 
 
-			dragging = true
+				dragging = true
 
-			dragStart =
-				input.Position
+				dragStart =
+					input.Position
 
-			startPos =
-				frame.Position
+				startPos =
+					frame.Position
+
+			end
 
 		end
 
@@ -196,7 +289,58 @@ function Menu.Create(
 
 
 
-	local y = 50
+	-- Scrollable Container
+	local scrollFrame =
+		Instance.new(
+			"ScrollingFrame"
+		)
+
+
+	scrollFrame.Name =
+		"ScrollContainer"
+
+
+	scrollFrame.Size =
+		UDim2.new(
+			1,
+			0,
+			1,
+			-45
+		)
+
+
+	scrollFrame.Position =
+		UDim2.new(
+			0,
+			0,
+			0,
+			45
+		)
+
+
+	scrollFrame.BackgroundTransparency =
+		1
+
+
+	scrollFrame.ScrollBarThickness =
+		8
+
+
+	scrollFrame.CanvasSize =
+		UDim2.new(
+			0,
+			0,
+			0,
+			0
+		)
+
+
+	scrollFrame.Parent =
+		frame
+
+
+	local y = 0
+	local canvasHeight = 0
 
 
 
@@ -231,11 +375,25 @@ function Menu.Create(
 			text
 
 
+		button.BackgroundColor3 =
+			Color3.fromRGB(
+				60,
+				60,
+				80
+			)
+
+
+		button.TextScaled =
+			true
+
+
 		button.Parent =
-			frame
+			scrollFrame
 
 
 		y += 40
+
+		canvasHeight += 40
 
 
 
@@ -245,7 +403,6 @@ function Menu.Create(
 
 
 	end
-
 
 
 
@@ -275,7 +432,6 @@ function Menu.Create(
 
 
 
-
 	Button(
 		"Toggle 5 Toe Beans",
 		function()
@@ -294,7 +450,6 @@ function Menu.Create(
 
 
 
-
 	Button(
 		"Glow ON/OFF",
 		function()
@@ -304,7 +459,6 @@ function Menu.Create(
 
 		end
 	)
-
 
 
 
@@ -355,14 +509,31 @@ function Menu.Create(
 
 
 		button.Text =
-			name..": "..value
+			name..": "..string.format(
+				"%.1f",
+				value
+			)
+
+
+		button.BackgroundColor3 =
+			Color3.fromRGB(
+				60,
+				60,
+				80
+			)
+
+
+		button.TextScaled =
+			true
 
 
 		button.Parent =
-			frame
+			scrollFrame
 
 
 		y += 40
+
+		canvasHeight += 40
 
 
 
@@ -387,7 +558,10 @@ function Menu.Create(
 
 
 			button.Text =
-				name..": "..value
+				name..": "..string.format(
+					"%.1f",
+					value
+				)
 
 
 
@@ -395,7 +569,6 @@ function Menu.Create(
 
 
 	end
-
 
 
 
@@ -422,6 +595,16 @@ function Menu.Create(
 		"Glow Strength",
 		"GlowStrength"
 	)
+
+
+	-- Set canvas size for scrolling
+	scrollFrame.CanvasSize =
+		UDim2.new(
+			0,
+			0,
+			0,
+			canvasHeight
+		)
 
 
 end
