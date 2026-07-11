@@ -201,8 +201,8 @@ function PawBuilder.Create(character, config)
 				CreatePart(
 					"ToeBean_"..index,
 					Vector3.new(
-						0.66,
-						0.455,
+						0.33,
+						0.527,
 						0.664
 					),
 					config.PadColor,
