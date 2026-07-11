@@ -185,10 +185,18 @@ function PawStyles.Apply(
 				data.Paw.Color =
 					style.PawColor
 
-				data.Paw.Size =
-					data.Paw.Size
-					*
-					style.PawScale
+				-- Get original size from attribute
+				local originalSize =
+					data.Paw:GetAttribute(
+						"OriginalSize"
+					)
+
+				if originalSize then
+					data.Paw.Size =
+						originalSize
+						*
+						style.PawScale
+				end
 
 			end
 
@@ -199,11 +207,18 @@ function PawStyles.Apply(
 				bean.Color =
 					style.PadColor
 
+				-- Get original size from attribute
+				local originalSize =
+					bean:GetAttribute(
+						"OriginalSize"
+					)
 
-				bean.Size =
-					bean.Size
-					*
-					style.ToeScale
+				if originalSize then
+					bean.Size =
+						originalSize
+						*
+						style.ToeScale
+				end
 
 			end
 
