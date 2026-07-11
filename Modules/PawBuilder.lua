@@ -126,6 +126,8 @@ function PawBuilder.Create(character, config)
 			pawFolder
 		)
 
+		-- Store original paw size
+		paw:SetAttribute("OriginalSize", paw.Size)
 
 		paw.CFrame =
 			foot.CFrame
@@ -207,6 +209,8 @@ function PawBuilder.Create(character, config)
 					pawFolder
 				)
 
+			-- Store original bean size
+			bean:SetAttribute("OriginalSize", bean.Size)
 
 			bean.CFrame =
 				paw.CFrame
@@ -267,6 +271,8 @@ function PawBuilder.Create(character, config)
 				pawFolder
 			)
 
+		-- Store original pad size
+		pad:SetAttribute("OriginalSize", pad.Size)
 
 		pad.CFrame =
 			paw.CFrame
